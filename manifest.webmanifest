@@ -1,0 +1,17 @@
+{
+  "name": "TAKSHAK Trading Journal",
+  "short_name": "TAKSHAK",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#090d14",
+  "theme_color": "#090d14",
+  "description": "Personal trading journal",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
