@@ -1,0 +1,1 @@
+# Takshak-trading-journal-
