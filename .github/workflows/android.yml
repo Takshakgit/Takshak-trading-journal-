@@ -1,0 +1,42 @@
+
+name: Build TAKSHAK Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.zip'
+      - '.github/workflows/android.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Extract Android project
+        run: |
+          mkdir android-project
+          unzip -q TAKSHAK_Android_Studio_Project.zip -d android-project
+          find android-project -name settings.gradle -o -name settings.gradle.kts
+
+      - name: Build APK
+        run: |
+          PROJECT_DIR=$(dirname "$(find android-project -name settings.gradle -o -name settings.gradle.kts | head -n 1)")
+          cd "$PROJECT_DIR"
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: TAKSHAK-TRADING-JOURNAL-APK
+          path: android-project/**/build/outputs/apk/debug/*.apk
